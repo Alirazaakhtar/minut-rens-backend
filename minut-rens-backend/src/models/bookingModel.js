@@ -1,25 +1,4 @@
-const bookings = [
-  {
-    bookingId: 1,
-    userId: 'user101',
-    service: 'wash',
-    dropOffDate: '2025-06-12',
-    pickUpDate: '2025-06-13',
-    status: 'pending',
-    totalPrice: 129.99,
-    bookingDate: '2025-06-10'
-  },
-  {
-    bookingId: 2,
-    userId: 'user102',
-    service: 'dryclean',
-    dropOffDate: '2025-06-14',
-    pickUpDate: '2025-06-15',
-    status: 'in_progress',
-    totalPrice: 199.99,
-    bookingDate: '2025-06-10'
-  }
-];
+const db = require('../config/db');
 
 const getAllBookings = async () => {
   return bookings;
