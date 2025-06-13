@@ -11,6 +11,7 @@ const getAllBookings = async (_req, res) => {
 
 const getBookingById = async (req, res) => {
   try {
+    //sikre at id er et tal
     const id = parseInt(req.params.id);
     const booking = await bookingService.getBookingById(id);
     if (booking) res.json(booking);

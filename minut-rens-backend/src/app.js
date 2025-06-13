@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const bookingRoutes = require('./routes/bookingRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -13,10 +14,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
 
 //Alle endpoints
+app.use('/auth', authRoutes);
 app.use('/bookings', bookingRoutes);
 
 module.exports = app;

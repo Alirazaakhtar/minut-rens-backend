@@ -1,16 +1,43 @@
 const db = require('../config/db');
 
 const getAllBookings = async () => {
-  return bookings;
+  const [rows] = await db.execute('SELECT * FROM bookings');
+  return rows;
 };
 
 const getBookingById = async (id) => {
-  return bookings.find(b => b.bookingId === id);
+  const sql = 'SELECT * FROM bookings WHERE id = ?';
+  //[] tager det første element i array'et som er et array som indeholder booking
+  const [rows] = await db.execute(sql, [id]);
+  //i det array er det første element den booking vi søger
+  return rows[0];
 };
 
 const insertBooking = async (booking) => {
-  bookings.push(booking);
-  return booking;
+
+  const sql = `INSERT INTO bookings (
+    user_id, 
+    service, 
+    drop_off_date, 
+    pick_up_date, 
+    status, 
+    total_price, 
+    booking_date
+    ) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+  //Disse værdier skal være præcis de varibler som komme med json-objektet  
+  const values = [
+    booking.userId,
+    booking.service,
+    booking.dropOffDate,
+    booking.pickUpDate,
+    booking.status,
+    booking.totalPrice,
+    booking.bookingDate
+  ];
+
+  const [result] = await db.execute(sql, values);
+  return {id: result.insertId, ...booking};
 };
 
 const updateBooking = async (id, data) => {

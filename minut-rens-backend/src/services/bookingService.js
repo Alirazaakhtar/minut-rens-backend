@@ -8,8 +8,8 @@ const getBookingById = async (id) => {
   return bookingModel.getBookingById(id);
 };
 
-const createBooking = async (data) => {
-  return bookingModel.insertBooking(data);
+const createBooking = async (booking) => {
+  return bookingModel.insertBooking(booking);
 };
 
 const updateBooking = async (id, data) => {
