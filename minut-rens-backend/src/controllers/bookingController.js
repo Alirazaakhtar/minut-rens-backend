@@ -1,8 +1,9 @@
 const bookingService = require('../services/bookingService');
 
-const getAllBookings = async (_req, res) => {
+const getBookingsByUser = async (req, res) => {
   try {
-    const bookings = await bookingService.getAllBookings();
+    const userId = req.user.userId; // Hent fra decoded token (middleware)
+    const bookings = await bookingService.getBookingsByUser(userId);
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ error: 'Serverfejl: kunne ikke hente bookinger' });
@@ -23,7 +24,8 @@ const getBookingById = async (req, res) => {
 
 const createBooking = async (req, res) => {
   try {
-    const booking = await bookingService.createBooking(req.body);
+    const userId = req.user.userId;
+    const booking = await bookingService.createBooking(userId, req.body);
     res.status(201).json(booking);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -55,7 +57,7 @@ const deleteBooking = async (req, res) => {
 
 module.exports = {
   createBooking,
-  getAllBookings,
+  getBookingsByUser,
   getBookingById,
   deleteBooking,
   updateBooking

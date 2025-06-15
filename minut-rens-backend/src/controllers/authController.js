@@ -3,14 +3,15 @@ const jwt = require('jsonwebtoken');
 const { findUserByEmail, createUser } = require('../models/userModel');
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
-
+  const user = req.body;
+    console.log(user);
   try {
-    const existing = await findUserByEmail(email);
+    const existing = await findUserByEmail(user.email);
     if (existing) return res.status(400).json({ error: 'Bruger findes allerede' });
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await createUser(email, hashedPassword);
+    // koden bliver hashed
+    const hashedPassword = await bcrypt.hash(user.password, 10); 
+    user.password = hashedPassword;
+    const newUser = await createUser(user);
 
     res.status(201).json({ message: 'Bruger oprettet', user: newUser });
   } catch (err) {

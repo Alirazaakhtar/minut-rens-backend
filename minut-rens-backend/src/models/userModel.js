@@ -6,10 +6,11 @@ const findUserByEmail = async (email) => {
     return rows[0];
 }
 
-const createUser = async (email, hashedPassword) => {
-  const sql = 'INSERT INTO users (email, password) VALUES (?, ?)';
-  const [result] = await db.execute(sql, [email, hashedPassword]);
-  return { id: result.insertId, email };
+const createUser = async (user) => {
+  const sql = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
+  const [result] = await db.execute(sql, [user.name, user.email, user.password]);
+  const email = user.email;
+  return { id: result.insertId, email};
 };
 
 module.exports = {

@@ -4,12 +4,16 @@ const getAllBookings = async () => {
   return bookingModel.getAllBookings();
 };
 
+const getBookingsByUser = async (userId) => {
+  return await bookingModel.getBookingsByUser(userId);
+};
+
 const getBookingById = async (id) => {
   return bookingModel.getBookingById(id);
 };
 
-const createBooking = async (booking) => {
-  return bookingModel.insertBooking(booking);
+const createBooking = async (userId, booking) => {
+  return bookingModel.insertBooking(userId, booking);
 };
 
 const updateBooking = async (id, data) => {
@@ -22,7 +26,7 @@ const deleteBooking = async (id) => {
 
 module.exports = {
   createBooking,
-  getAllBookings,
+  getBookingsByUser,
   getBookingById,
   deleteBooking,
   updateBooking
