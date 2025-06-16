@@ -4,6 +4,16 @@ const getAllServices = async () => {
     return serviceModel.getAllServices();
 };
 
+const getServiceById = async (serviceId) => {
+    return serviceModel.getServiceById(serviceId);
+};
+
+const createService = async (service) => {
+    return serviceModel.insertService(service);
+};
+
 module.exports = {
-    getAllServices
+    getAllServices,
+    getServiceById,
+    createService
 }; 

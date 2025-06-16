@@ -43,7 +43,7 @@ const insertBooking = async (userId, booking) => {
   ];
 
   const [result] = await db.execute(sql, values);
-  return {id: result.insertId, ...booking};
+  return {"id": result.insertId, ...booking};
 };
 
 const updateBooking = async (id, data) => {

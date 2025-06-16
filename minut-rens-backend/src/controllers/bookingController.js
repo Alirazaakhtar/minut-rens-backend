@@ -5,7 +5,8 @@ const getBookingsByUser = async (req, res) => {
     const userId = req.user.userId; // Hent fra decoded token (middleware)
     const bookings = await bookingService.getBookingsByUser(userId);
     res.json(bookings);
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Serverfejl: kunne ikke hente bookinger' });
   }
 };
@@ -17,7 +18,8 @@ const getBookingById = async (req, res) => {
     const booking = await bookingService.getBookingById(id);
     if (booking) res.json(booking);
     else res.status(404).json({ message: 'Booking ikke fundet' });
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Serverfejl: kunne ikke hente booking' });
   }
 };
@@ -25,12 +27,11 @@ const getBookingById = async (req, res) => {
 const createBooking = async (req, res) => {
   try {
     const userId = req.user.userId;
-    console.log(req.body);
     const booking = await bookingService.createBooking(userId, req.body);
     res.status(201).json(booking);
-  } catch (err) {
-    console.log(err);
-    res.status(400).json({ error: err.message });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -40,7 +41,8 @@ const updateBooking = async (req, res) => {
     const updated = await bookingService.updateBooking(id, req.body);
     if (updated) res.json(updated);
     else res.status(404).json({ message: 'Booking ikke fundet' });
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Serverfejl: kunne ikke opdatere booking' });
   }
 };
@@ -52,7 +54,8 @@ const deleteBooking = async (req, res) => {
     const deleted = await bookingService.deleteBooking(id);
     if (deleted) res.json(deleted);
     else res.status(404).json({ message: 'Booking ikke fundet' });
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Serverfejl: kunne ikke slette booking' });
   }
 };
