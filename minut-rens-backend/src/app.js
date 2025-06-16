@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const bookingRoutes = require('./routes/bookingRoutes');
 const authRoutes = require('./routes/authRoutes');
-
+const serviceRoutes = require('./routes/serviceRoutes');
 const app = express();
 
 //Sikkerhed: tillader kun en specifik origin ad gangen at tilgå backend.
@@ -19,5 +19,6 @@ app.use(express.json());
 //Alle endpoints
 app.use('/auth', authRoutes);
 app.use('/bookings', bookingRoutes);
+app.use('/services', serviceRoutes);
 
 module.exports = app;

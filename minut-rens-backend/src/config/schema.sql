@@ -17,3 +17,11 @@ CREATE TABLE bookings (
   booking_date DATE,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE services (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,                
+  description TEXT,                        
+  price DOUBLE NOT NULL,                   
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
