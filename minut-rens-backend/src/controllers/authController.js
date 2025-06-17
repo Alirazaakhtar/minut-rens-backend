@@ -32,7 +32,11 @@ const login = async (req, res) => {
 
     if (!passwordMatch) return res.status(401).json({ error: 'Forkert kodeord' });
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+       process.env.JWT_SECRET,
+        { expiresIn: '1h' }
+      );
 
     res.json({ message: 'Login succesfuldt', token });
   } catch (err) {

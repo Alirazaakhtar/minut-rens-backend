@@ -5,9 +5,9 @@ const getAllBookings = async () => {
   return rows;
 };
 
-const getBookingsByUser = async (userId) => {
+const getBookingsByUser = async (user_id) => {
   const sql = 'SELECT * FROM bookings WHERE user_id = ?';
-  const [rows] = await db.execute(sql, [userId]);
+  const [rows] = await db.execute(sql, [user_id]);
   return rows;
 };
 
@@ -19,11 +19,11 @@ const getBookingById = async (id) => {
   return rows[0];
 };
 
-const insertBooking = async (userId, booking) => {
+const insertBooking = async (user_id, booking) => {
 
   const sql = `INSERT INTO bookings (
     user_id, 
-    service, 
+    service_id, 
     drop_off_date, 
     pick_up_date, 
     status, 
@@ -33,34 +33,49 @@ const insertBooking = async (userId, booking) => {
 
   //Disse værdier skal være præcis de varibler som komme med json-objektet  
   const values = [
-    userId,
-    booking.service,
-    booking.dropOffDate,
-    booking.pickUpDate,
+    user_id,
+    booking.service_id,
+    booking.drop_off_date,
+    booking.pick_up_date,
     booking.status,
-    booking.totalPrice,
-    booking.bookingDate
+    booking.total_price,
+    booking.booking_date
   ];
 
   const [result] = await db.execute(sql, values);
   return {"id": result.insertId, ...booking};
 };
 
-const updateBooking = async (id, data) => {
-  const index = bookings.findIndex(b => b.bookingId === id);
-  if (index !== -1) {
-    bookings[index] = { ...bookings[index], ...data, bookingId: id };
-    return bookings[index];
-  }
-  return null;
+const updateBooking = async (id, booking) => {
+  const sql = `
+    UPDATE bookings
+    SET service_id = ?, 
+        drop_off_date = ?, 
+        pick_up_date = ?, 
+        status = ?, 
+        total_price = ?, 
+        booking_date = ?
+    WHERE id = ?
+  `;
+
+  const values = [
+    booking.service_id,
+    booking.drop_off_date,
+    booking.pick_up_date,
+    booking.status,
+    booking.total_price,
+    booking.booking_date,
+    id
+  ];
+
+  const [result] = await db.execute(sql, values);
+
+  if (result.affectedRows === 0) return null;
+
+  return { id, ...booking };
 };
 
 const deleteBooking = async (id) => {
-  const index = bookings.findIndex(b => b.bookingId === id);
-  if (index !== -1) {
-    return bookings.splice(index, 1)[0];
-  }
-  return null;
 };
 
 module.exports = {
