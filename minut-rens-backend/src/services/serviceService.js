@@ -12,8 +12,13 @@ const createService = async (service) => {
     return serviceModel.insertService(service);
 };
 
+const updateService = async (id, data) => {
+  return await serviceModel.updateService(id, data);
+};
+
 module.exports = {
     getAllServices,
     getServiceById,
-    createService
+    createService,
+    updateService
 }; 

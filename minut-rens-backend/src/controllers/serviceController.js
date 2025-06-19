@@ -34,8 +34,27 @@ const createService = async (req, res) => {
     }
 };
 
+const updateService = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const data = req.body;
+
+    const updated = await serviceService.updateService(id, data);
+
+    if (!updated) {
+      return res.status(404).json({ error: 'Service ikke fundet' });
+    }
+
+    res.json(updated);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Serverfejl: kunne ikke updatere service' });
+  }
+};
+
 module.exports = {
     getAllServices, 
     getServiceById,
-    createService
+    createService,
+    updateService
 };
