@@ -13,7 +13,20 @@ const createUser = async (user) => {
   return { id: result.insertId, email};
 };
 
+const getAllUsers = async () => {
+  const [rows] = await db.execute('SELECT id, name, email, role FROM users');
+  return rows;
+};
+
+const getUserById = async (id) => {
+  const sql = 'SELECT id, name, email, role FROM users WHERE id = ?';
+  const [rows] = await db.execute(sql,[id]);
+  return rows[0];
+};
+
 module.exports = {
     findUserByEmail,
-    createUser
+    createUser,
+    getAllUsers,
+    getUserById
 };

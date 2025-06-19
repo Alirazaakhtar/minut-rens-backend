@@ -62,7 +62,8 @@ const deleteService = async (req, res) => {
     }
 
     res.json({ message: 'Service slettet', deleted });
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Serverfejl: kunne ikke slette service' });
   }
 };
