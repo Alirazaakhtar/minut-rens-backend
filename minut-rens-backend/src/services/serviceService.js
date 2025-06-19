@@ -16,9 +16,14 @@ const updateService = async (id, data) => {
   return await serviceModel.updateService(id, data);
 };
 
+const deleteService = async (id) => {
+  return await serviceModel.deleteService(id);
+};
+
 module.exports = {
     getAllServices,
     getServiceById,
     createService,
-    updateService
+    updateService,
+    deleteService
 }; 

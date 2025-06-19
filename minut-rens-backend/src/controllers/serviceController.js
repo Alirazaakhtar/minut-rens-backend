@@ -52,9 +52,25 @@ const updateService = async (req, res) => {
   }
 };
 
+const deleteService = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const deleted = await serviceService.deleteService(id);
+
+    if (!deleted) {
+      return res.status(404).json({ error: 'Service ikke fundet' });
+    }
+
+    res.json({ message: 'Service slettet', deleted });
+  } catch (err) {
+    res.status(500).json({ error: 'Serverfejl: kunne ikke slette service' });
+  }
+};
+
 module.exports = {
     getAllServices, 
     getServiceById,
     createService,
-    updateService
+    updateService,
+    deleteService
 };

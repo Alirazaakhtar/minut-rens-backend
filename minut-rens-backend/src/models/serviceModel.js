@@ -37,9 +37,19 @@ const updateService = async (id, data) => {
   return { id, ...data };
 };
 
+const deleteService = async (id) => {
+  const sql = 'DELETE FROM services WHERE id = ?';
+  const [result] = await db.execute(sql, [id]);
+
+  if (result.affectedRows === 0) return null;
+
+  return { id };
+};
+
 module.exports = {
     getAllServices,
     getServiceById,
     insertService,
-    updateService
+    updateService,
+    deleteService
 };
