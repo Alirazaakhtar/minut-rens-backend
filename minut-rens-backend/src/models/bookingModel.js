@@ -83,5 +83,6 @@ module.exports = {
   getBookingsByUser,
   getBookingById,
   deleteBooking,
-  updateBooking
+  updateBooking,
+  getAllBookings
 };

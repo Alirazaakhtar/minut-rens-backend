@@ -1,5 +1,15 @@
 const bookingService = require('../services/bookingService');
 
+const getAllBookings = async (req, res) => {
+  try {
+    const bookings = await bookingService.getAllBookings();
+    res.json(bookings);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Serverfejl: kunne ikke hente bookinger' });
+  }
+};
+
 const getBookingsByUser = async (req, res) => {
   try {
     const userId = req.user.userId; // Hent fra decoded token (middleware)
@@ -65,5 +75,6 @@ module.exports = {
   getBookingsByUser,
   getBookingById,
   deleteBooking,
-  updateBooking
+  updateBooking,
+  getAllBookings
 };
