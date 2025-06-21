@@ -5,6 +5,7 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const authRoutes = require('./routes/authRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const userRoutes = require('./routes/userRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 const app = express();
 
 //Sikkerhed: tillader kun en specifik origin ad gangen at tilgå backend.
@@ -22,5 +23,6 @@ app.use('/auth', authRoutes);
 app.use('/bookings', bookingRoutes);
 app.use('/services', serviceRoutes);
 app.use('/users', userRoutes);
+app.use('/contact', contactRoutes);
 
 module.exports = app;
