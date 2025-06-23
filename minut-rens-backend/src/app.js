@@ -12,7 +12,7 @@ const app = express();
 const corsOptions = {
   origin: process.env.ENVIROMENT === 'production'
     ? 'https://minut-rens.dk'
-    : 'http://localhost:8080'
+    : 'http://localhost:3000' //frontend
 };
 
 app.use(cors(corsOptions));

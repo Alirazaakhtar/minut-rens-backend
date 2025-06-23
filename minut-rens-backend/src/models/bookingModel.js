@@ -6,7 +6,14 @@ const getAllBookings = async () => {
 };
 
 const getBookingsByUser = async (user_id) => {
-  const sql = 'SELECT * FROM bookings WHERE user_id = ?';
+  const sql = `
+    SELECT 
+      b.*, 
+      s.name AS service_name
+    FROM bookings b
+    JOIN services s ON b.service_id = s.id
+    WHERE b.user_id = ?
+  `;
   const [rows] = await db.execute(sql, [user_id]);
   return rows;
 };
@@ -27,9 +34,8 @@ const insertBooking = async (user_id, booking) => {
     drop_off_date, 
     pick_up_date, 
     status, 
-    total_price, 
-    booking_date
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    total_price
+    ) VALUES (?, ?, ?, ?, ?, ?)`;
 
   //Disse værdier skal være præcis de varibler som komme med json-objektet  
   const values = [
@@ -38,8 +44,7 @@ const insertBooking = async (user_id, booking) => {
     booking.drop_off_date,
     booking.pick_up_date,
     booking.status,
-    booking.total_price,
-    booking.booking_date
+    booking.total_price
   ];
 
   const [result] = await db.execute(sql, values);

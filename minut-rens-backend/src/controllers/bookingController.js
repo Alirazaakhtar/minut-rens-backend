@@ -37,6 +37,8 @@ const getBookingById = async (req, res) => {
 const createBooking = async (req, res) => {
   try {
     const userId = req.user.userId;
+    console.log(req.body);
+    
     const booking = await bookingService.createBooking(userId, req.body);
     res.status(201).json(booking);
   } catch (error) {

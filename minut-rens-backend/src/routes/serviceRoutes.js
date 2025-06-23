@@ -5,8 +5,8 @@ const authenticateToken = require('../middleware/authMiddleware');
 const authorizeAdmin = require('../middleware/authorizeAdmin');
 
 //Customer routes
-router.get('/', authenticateToken, serviceController.getAllServices);
-router.get('/:id', authenticateToken, serviceController.getServiceById);
+router.get('/', serviceController.getAllServices);
+router.get('/:id', serviceController.getServiceById);
 
 //KUN Admin
 router.post('/', authenticateToken, authorizeAdmin, serviceController.createService);

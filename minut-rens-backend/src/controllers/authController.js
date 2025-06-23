@@ -38,7 +38,7 @@ const login = async (req, res) => {
         { expiresIn: '1h' }
       );
 
-    res.json({ message: 'Login succesfuldt', token });
+    res.json({ message: 'Login succesfuldt', token, role: user.role });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Login-fejl' });
