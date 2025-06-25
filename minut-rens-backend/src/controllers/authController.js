@@ -4,7 +4,6 @@ const { findUserByEmail, createUser } = require('../models/userModel');
 
 const register = async (req, res) => {
   const user = req.body;
-    console.log(user);
   try {
     const existing = await findUserByEmail(user.email);
     if (existing) return res.status(400).json({ error: 'Bruger findes allerede' });
