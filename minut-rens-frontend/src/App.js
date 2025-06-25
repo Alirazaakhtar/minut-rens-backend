@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import AdminRoute from './components/AdminRoute';
 import AdminPage from './pages/AdminPage';
 import Services from './pages/ServicePage';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/services" element={<Services />} />
 
         <Route path="bookings/admin/" element={
