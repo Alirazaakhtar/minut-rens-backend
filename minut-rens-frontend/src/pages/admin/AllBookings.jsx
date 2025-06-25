@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const AdminPage = () => {
   const [bookings, setBookings] = useState([]);
@@ -22,6 +23,16 @@ const AdminPage = () => {
     fetchBookings();
   }, []);
 
+  if (!bookings) {
+  return (
+    <div className="d-flex justify-content-center align-items-center my-5">
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Indlæser...</span>
+      </div>
+    </div>
+  );
+}
+
   return (
     <div className="container">
       <h2>Alle bookinger</h2>
@@ -37,6 +48,7 @@ const AdminPage = () => {
               <th>Afhentning</th>
               <th>Status</th>
               <th>Pris</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -48,6 +60,7 @@ const AdminPage = () => {
                 <td>{new Date(b.pick_up_date).toLocaleDateString()}</td>
                 <td>{b.status}</td>
                 <td>{b.total_price} kr.</td>
+                <td><Link className='btn btn-primary' to={`/bookings/admin/${b.id}`}>Rediger</Link></td>
               </tr>
             ))}
           </tbody>

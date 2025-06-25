@@ -41,7 +41,6 @@ const CreateBooking = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert('Booking oprettet!');
       navigate('/bookings');
     } catch (err) {
       console.error(err);
