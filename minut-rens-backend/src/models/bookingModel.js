@@ -1,7 +1,7 @@
 const db = require('../config/db');
 
 const getAllBookings = async () => {
-  const [rows] = await db.execute('SELECT * FROM bookings');
+  const [rows] = await db.execute('SELECT * FROM bookings ORDER BY booking_date DESC');
   return rows;
 };
 
@@ -58,8 +58,7 @@ const updateBooking = async (id, booking) => {
         drop_off_date = ?, 
         pick_up_date = ?, 
         status = ?, 
-        total_price = ?, 
-        booking_date = ?
+        total_price = ?
     WHERE id = ?
   `;
 
@@ -69,7 +68,6 @@ const updateBooking = async (id, booking) => {
     booking.pick_up_date,
     booking.status,
     booking.total_price,
-    booking.booking_date,
     id
   ];
 
