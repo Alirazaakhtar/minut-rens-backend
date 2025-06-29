@@ -1,4 +1,7 @@
 const bookingService = require('../services/bookingService');
+const mailService = require('../services/mailService');
+const userService = require('../services/userService');
+const serviceService = require('../services/serviceService');
 
 const getAllBookings = async (req, res) => {
   try {
@@ -38,6 +41,12 @@ const createBooking = async (req, res) => {
   try {
     const userId = req.user.userId;
     const booking = await bookingService.createBooking(userId, req.body);
+    const user = await userService.getUserById(userId);
+    const service = await serviceService.getServiceById(booking.service_id);
+    console.log(user);
+    
+    await mailService.sendBookingConfirmation(user.email, booking, user, service);
+
     res.status(201).json(booking);
   } catch (error) {
     console.log(error);
@@ -49,6 +58,12 @@ const updateBooking = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const updated = await bookingService.updateBooking(id, req.body);
+    const user = await userService.getUserById(updated.user_id);
+    const service = await serviceService.getServiceById(updated.service_id);
+    //sender mail ved status klar
+    if(updated.status == 'klar til afhentning') mailService.SendReadyMail(updated, user, service);
+    else res.status(404).json({ message: 'Mail ikke sendt' });
+
     if (updated) res.json(updated);
     else res.status(404).json({ message: 'Booking ikke fundet' });
   } catch (error) {
