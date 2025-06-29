@@ -24,9 +24,24 @@ const getUserById = async (id) => {
   return rows[0];
 };
 
+const updateUser = async (id, user) => {
+  const sql = 'UPDATE users SET name = ?, email = ?, role = ? WHERE id = ?';
+  const [result] = await db.execute(
+    sql, [user.name, user.email, user.role, id]
+  );
+
+  if (result.affectedRows === 0) {
+    throw new Error('Bruger ikke fundet');
+  }
+
+  const [rows] = await db.execute('SELECT * FROM users WHERE id = ?', [id]);
+  return rows[0];
+};
+
 module.exports = {
     findUserByEmail,
     createUser,
     getAllUsers,
-    getUserById
+    getUserById,
+    updateUser
 };

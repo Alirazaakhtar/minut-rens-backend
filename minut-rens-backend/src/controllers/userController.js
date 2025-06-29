@@ -22,7 +22,22 @@ const getUserById = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  const id = parseInt(req.params.id);
+  const user = req.body;
+
+  try {
+    const updatedUser = await userService.updateUser(id, user);
+    if (updatedUser) res.json(updatedUser);
+    else res.status(404).json({ message: 'Bruger ikke fundet' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Serverfejl: Fejl ved opdatering af bruger' });
+  }
+};
+
 module.exports = {
   getAllUsers,
-  getUserById
+  getUserById,
+  updateUser
 };

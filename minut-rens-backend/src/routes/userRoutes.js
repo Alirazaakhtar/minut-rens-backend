@@ -7,5 +7,6 @@ const authorizeAdmin = require('../middleware/authorizeAdmin');
 //KUN Admin
 router.get('/', authenticateToken, authorizeAdmin, userController.getAllUsers);
 router.get('/:id', authenticateToken, authorizeAdmin, userController.getUserById);
+router.put('/:id', authenticateToken, authorizeAdmin, userController.updateUser);
 
 module.exports = router;
