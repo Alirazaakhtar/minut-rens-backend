@@ -68,6 +68,11 @@ const EditBooking = () => {
     <div className="container">
       <h2>Rediger booking #{id}</h2>
       <form onSubmit={handleSubmit}>
+
+        <div className="mb-3">
+          <label><b>Bruger-ID:</b> {booking.user_id}</label>
+        </div>
+
         <div className="mb-3">
           <label>Service</label>
           <select

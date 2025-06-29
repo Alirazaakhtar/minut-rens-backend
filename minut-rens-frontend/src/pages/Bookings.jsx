@@ -1,13 +1,25 @@
 import { useEffect, useState } from 'react';
-import axios from '../services/api';
+import axios from 'axios';
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios.get('/bookings')
-      .then(res => setBookings(res.data))
-      .catch(() => alert("Kun adgang med login"));
+    const fetchBookings = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get('http://localhost:8080/bookings', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setBookings(res.data);
+      } catch (err) {
+        console.error('Fejl ved hentning af bookinger:', err);
+      }
+    };
+
+    fetchBookings();
   }, []);
 
   return (

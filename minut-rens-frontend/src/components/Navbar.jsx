@@ -33,9 +33,18 @@ const Navbar = () => {
             )}
 
             {token && role === 'admin' && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/bookings/admin">Alle bookinger</Link>
-              </li>
+                <>
+                    <li className="nav-item">
+                    <Link className="nav-link" to="/bookings/admin">Alle bookinger</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link className="nav-link" to="/users">Alle brugere</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link className="nav-link" to="/services/admin">Alle services</Link>
+                    </li>
+                </>
+              
             )}
 
             {!token && (

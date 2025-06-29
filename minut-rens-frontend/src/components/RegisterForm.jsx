@@ -15,7 +15,6 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       await axios.post('http://localhost:8080/auth/register', formData);
-      alert('Bruger oprettet! Du kan nu logge ind.');
       navigate('/login');
     } catch (err) {
       alert(err.response?.data?.error || 'Fejl ved oprettelse');
