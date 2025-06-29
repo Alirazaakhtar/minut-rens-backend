@@ -10,6 +10,7 @@ const CreateBooking = () => {
     pick_up_date: '',
     status: 'modtaget'
   });
+  const [confirmStep, setConfirmStep] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,9 +24,12 @@ const CreateBooking = () => {
     setBooking({ ...booking, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleConfirm = (e) => {
     e.preventDefault();
+    setConfirmStep(true);
+  };
 
+  const handleSubmit = async () => {
     const selectedService = services.find(s => s.id === Number(booking.service_id));
     const total_price = selectedService?.price || 0;
 
@@ -48,10 +52,28 @@ const CreateBooking = () => {
     }
   };
 
+  const selectedService = services.find(s => s.id === Number(booking.service_id));
+  const total_price = selectedService?.price || 0;
+
+  if (confirmStep) {
+    return (
+      <div className="container mt-5" style={{ maxWidth: '500px' }}>
+        <h2 className="mb-4">Bekræft din booking</h2>
+        <p><strong>Service:</strong> {selectedService?.name}</p>
+        <p><strong>Afleveringsdato:</strong> {booking.drop_off_date}</p>
+        <p><strong>Afhentningsdato:</strong> {booking.pick_up_date}</p>
+        <p><strong>Total pris:</strong> {total_price} kr.</p>
+
+        <button onClick={handleSubmit} className="btn btn-success me-2">Bekræft booking</button>
+        <button onClick={() => setConfirmStep(false)} className="btn btn-secondary">Tilbage</button>
+      </div>
+    );
+  }
+
   return (
     <div className="container mt-5" style={{ maxWidth: '500px' }}>
       <h2 className="mb-4">Opret booking</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleConfirm}>
         <div className="mb-3">
           <label className="form-label">Service:</label>
           <select name="service_id" className="form-select" onChange={handleChange} required>
@@ -74,11 +96,11 @@ const CreateBooking = () => {
 
         {booking.service_id && (
           <div className="alert alert-info">
-            Total pris: {services.find(s => s.id === Number(booking.service_id))?.price || 0} kr.
+            Total pris: {total_price} kr.
           </div>
         )}
 
-        <button type="submit" className="btn btn-primary w-100">Book</button>
+        <button type="submit" className="btn btn-primary w-100">Gå til bekræftelse</button>
       </form>
     </div>
   );

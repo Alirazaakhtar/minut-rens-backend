@@ -17,6 +17,7 @@ import EditService from './pages/admin/EditService';
 import Copyright from './components/Copyright';
 import ThankYou from './pages/ThankYou';
 import BookingThankYou from './pages/BookingThankYou';
+import EditUser from './pages/admin/EditUser';
 
 function App() {
   return (
@@ -61,6 +62,11 @@ function App() {
           <Route path="/services/edit/:id" element={
           <AdminRoute>
             <EditService/>
+          </AdminRoute>
+          } />
+          <Route path="/users/edit/:id" element={
+          <AdminRoute>
+            <EditUser/>
           </AdminRoute>
           } />
 

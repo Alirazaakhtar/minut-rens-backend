@@ -50,7 +50,7 @@ const handleSearch = async (e) => {
 
       if (res.data) {
         // Gå til redigeringsside direkte
-        navigate(`/bookings/admin/${searchId}`);
+        navigate(`/bookings/edit/${searchId}`);
       }
     } catch (err) {
       alert('Booking ikke fundet');
@@ -79,9 +79,7 @@ const handleSearch = async (e) => {
           <thead>
             <tr>
               <th>Booking-ID</th>
-              <th>Service</th>
-              <th>Aflevering</th>
-              <th>Afhentning</th>
+              <th>Booking dato</th>
               <th>Status</th>
               <th>Pris</th>
               <th></th>
@@ -91,9 +89,7 @@ const handleSearch = async (e) => {
             {bookings.map(b => (
               <tr key={b.id}>
                 <td>{b.id}</td>
-                <td>{b.service_name || b.service_id}</td>
-                <td>{new Date(b.drop_off_date).toLocaleDateString()}</td>
-                <td>{new Date(b.pick_up_date).toLocaleDateString()}</td>
+                <td>{new Date(b.booking_date).toLocaleDateString()}</td>
                 <td>{b.status}</td>
                 <td>{b.total_price} kr.</td>
                 <td><Link className='btn btn-primary' to={`/bookings/edit/${b.id}`}>Updater</Link></td>
