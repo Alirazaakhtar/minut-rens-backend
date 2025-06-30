@@ -21,7 +21,7 @@ CREATE TABLE bookings (
   service_id INT NOT NULL,
   drop_off_date DATE,
   pick_up_date DATE,
-  status ENUM('modtaget', 'i gang', 'klar til afhentning'),
+  status ENUM('modtaget', 'i gang', 'klar til afhentning', 'afhentet', 'annulleret'),
   total_price DOUBLE,
   booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id),
