@@ -11,7 +11,7 @@ const app = express();
 //Sikkerhed: tillader kun en specifik origin ad gangen at tilgå backend.
 const corsOptions = {
   origin: process.env.ENVIROMENT === 'production'
-    ? 'hhttps://minut-rens-frontend-production.up.railway.app'
+    ? 'https://minut-rens-frontend-production.up.railway.app'
     : 'http://localhost:3000' //frontend
 };
 
