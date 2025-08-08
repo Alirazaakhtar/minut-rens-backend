@@ -44,8 +44,6 @@ describe('Users API', () => {
       role: 'user'
     };
 
-    console.log(userId);
-
     const res = await request(app)
       .put('/users/' + userId)
       .set('Authorization', `Bearer ${token}`)
