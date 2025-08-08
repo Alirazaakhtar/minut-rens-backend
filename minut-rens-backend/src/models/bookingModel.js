@@ -79,6 +79,12 @@ const updateBooking = async (id, booking) => {
 };
 
 const deleteBooking = async (id) => {
+   const sql = 'DELETE FROM bookings WHERE id = ?';
+    const [result] = await db.execute(sql, [id]);
+  
+    if (result.affectedRows === 0) return null;
+  
+    return { id };
 };
 
 module.exports = {

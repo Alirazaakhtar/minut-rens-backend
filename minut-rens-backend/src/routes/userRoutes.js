@@ -8,5 +8,6 @@ const authorizeAdmin = require('../middleware/authorizeAdmin');
 router.get('/', authenticateToken, authorizeAdmin, userController.getAllUsers);
 router.get('/:id', authenticateToken, authorizeAdmin, userController.getUserById);
 router.put('/:id', authenticateToken, authorizeAdmin, userController.updateUser);
+router.delete('/:id', authenticateToken, authorizeAdmin, userController.deleteUser);
 
 module.exports = router;

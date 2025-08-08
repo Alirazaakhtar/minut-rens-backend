@@ -38,10 +38,19 @@ const updateUser = async (id, user) => {
   return rows[0];
 };
 
+const deleteUser = async (id) => {
+  const sql = 'DELETE FROM users WHERE id = ?';
+  const [result] = await db.execute(sql, [id]);
+
+  if (result.affectedRows === 0) return null;
+
+  return { id };
+};
+
 module.exports = {
     findUserByEmail,
     createUser,
     getAllUsers,
     getUserById,
-    updateUser
+    updateUser, deleteUser
 };

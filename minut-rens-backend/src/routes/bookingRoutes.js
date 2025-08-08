@@ -7,7 +7,7 @@ const authorizeAdmin = require('../middleware/authorizeAdmin');
 //Admin routes
 router.get('/admin', authenticateToken, authorizeAdmin, bookingController.getAllBookings);
 router.put('/:id', authenticateToken, authorizeAdmin, bookingController.updateBooking);
-router.delete('/id', authenticateToken, authorizeAdmin, bookingController.deleteBooking);
+router.delete('/:id', authenticateToken, authorizeAdmin, bookingController.deleteBooking);
 
 //Customer routes
 router.get('/', authenticateToken, bookingController.getBookingsByUser);

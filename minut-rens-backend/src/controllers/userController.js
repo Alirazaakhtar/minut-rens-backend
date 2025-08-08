@@ -36,8 +36,25 @@ const updateUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+ try {
+     const id = parseInt(req.params.id);
+     const deleted = await userService.deleteUser(id);
+ 
+     if (!deleted) {
+       return res.status(404).json({ error: 'Bruger ikke fundet' });
+     }
+ 
+     res.json({ message: 'Bruger slettet', deleted });
+   } catch (error) {
+     console.log(error);
+     res.status(500).json({ error: 'Serverfejl: kunne ikke slette bruger' });
+   }
+};
+
 module.exports = {
   getAllUsers,
   getUserById,
-  updateUser
+  updateUser,
+  deleteUser
 };
